@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NR-1 RHQ Canteen Feedback</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        img {
+            display: block;
+            margin: 10px auto;
+            width: 100%;
+            height: 20%;
+            max-width: 100%;
+            border-radius: 10px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        input[type=text],
+        input[type=email],
+        input[type=tel],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        input[type=checkbox] {
+            accent-color: green;
+            transform: scale(1.5);   /* increase number to make it larger */
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .employee-code {
+            display: none;
+            margin-top: 5px;
+        }
+
+        .bold-heading {
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .checkbox-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 9%;
+        }
+
+        .emoji {
+            font-size: 28px;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+
+        .rating-label {
+            font-size: 12px;
+            font-family: 'Verdana', sans-serif;
+        }
+
+        button {
+            background: green;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:disabled {
+            background: gray;
+            cursor: not-allowed;
+        }
+
+        .spinner {
+            display: none;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid green;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 10px auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .thanks {
+            text-align: center;
+            font-size: 20px;
+            color: green;
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1><u>NR-1 RHQ Canteen Feedback</u>🍴👨‍🍳</h1>
+        <img src="Canteen Photo.jpg" alt="Canteen Photo">
+
+        <form id="feedbackForm">
+            <!-- PowerGrid Employee -->
+            <label>Are you a PowerGrid employee?</label>
+            <input type="checkbox" id="empYes"> Yes
+            <input type="checkbox" id="empNo"> No
+            <div class="employee-code" id="employeeCodeDiv">
+                <label>Employee Code (8 digits)</label>
+                <input type="text" id="employeeCode" maxlength="8" pattern="\d{8}">
+            </div>
+
+            <label>Name</label>
+            <input type="text" id="name" required>
+            <label>Email</label>
+            <input type="email" id="email" required>
+            <label>Phone Number</label>
+            <input type="tel" id="phone" required pattern="\d{10}" placeholder="Enter 10-digit number">
+
+            <label>Date & Time</label>
+            <input type="text" id="dateTime" readonly>
+
+            <label>Meal Taken</label>
+            <select id="meal" required>
+                <option value="">--Select--</option>
+                <option>Breakfast</option>
+                <option>Lunch</option>
+                <option>Snacks</option>
+            </select>
+
+            <div class="bold-heading">(Rating Scale: 1 = Low, 10 = High)</div>
+            <br>
+
+            <!-- Food Quality Rating -->
+            <label><u>Food Quality</u></label>
+            <div class="checkbox-container">
+                <div class="checkbox-item">
+                    <div class="emoji">😡</div><input type="checkbox" name="food" value="1">
+                    <div class="rating-label">1</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😟</div><input type="checkbox" name="food" value="2">
+                    <div class="rating-label">2</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😕</div><input type="checkbox" name="food" value="3">
+                    <div class="rating-label">3</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😐</div><input type="checkbox" name="food" value="4">
+                    <div class="rating-label">4</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">🙂</div><input type="checkbox" name="food" value="5">
+                    <div class="rating-label">5</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😊</div><input type="checkbox" name="food" value="6">
+                    <div class="rating-label">6</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😃</div><input type="checkbox" name="food" value="7">
+                    <div class="rating-label">7</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😁</div><input type="checkbox" name="food" value="8">
+                    <div class="rating-label">8</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😎</div><input type="checkbox" name="food" value="9">
+                    <div class="rating-label">9</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">🤩</div><input type="checkbox" name="food" value="10">
+                    <div class="rating-label">10</div>
+                </div>
+            </div>
+
+            <!-- Overall Service Rating -->
+            <label><u>Overall Service Quality</u></label>
+            <div class="checkbox-container">
+                <div class="checkbox-item">
+                    <div class="emoji">😡</div><input type="checkbox" name="service" value="1">
+                    <div class="rating-label">1</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😟</div><input type="checkbox" name="service" value="2">
+                    <div class="rating-label">2</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😕</div><input type="checkbox" name="service" value="3">
+                    <div class="rating-label">3</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😐</div><input type="checkbox" name="service" value="4">
+                    <div class="rating-label">4</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">🙂</div><input type="checkbox" name="service" value="5">
+                    <div class="rating-label">5</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😊</div><input type="checkbox" name="service" value="6">
+                    <div class="rating-label">6</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😃</div><input type="checkbox" name="service" value="7">
+                    <div class="rating-label">7</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😁</div><input type="checkbox" name="service" value="8">
+                    <div class="rating-label">8</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😎</div><input type="checkbox" name="service" value="9">
+                    <div class="rating-label">9</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">🤩</div><input type="checkbox" name="service" value="10">
+                    <div class="rating-label">10</div>
+                </div>
+            </div>
+
+            <!-- Cleanliness -->
+            <label><u>Cleanliness</u></label>
+            <div class="checkbox-container">
+                <div class="checkbox-item">
+                    <div class="emoji">😡</div><input type="checkbox" name="clean" value="1">
+                    <div class="rating-label">1</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😟</div><input type="checkbox" name="clean" value="2">
+                    <div class="rating-label">2</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😕</div><input type="checkbox" name="clean" value="3">
+                    <div class="rating-label">3</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😐</div><input type="checkbox" name="clean" value="4">
+                    <div class="rating-label">4</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">🙂</div><input type="checkbox" name="clean" value="5">
+                    <div class="rating-label">5</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😊</div><input type="checkbox" name="clean" value="6">
+                    <div class="rating-label">6</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😃</div><input type="checkbox" name="clean" value="7">
+                    <div class="rating-label">7</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😁</div><input type="checkbox" name="clean" value="8">
+                    <div class="rating-label">8</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😎</div><input type="checkbox" name="clean" value="9">
+                    <div class="rating-label">9</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">🤩</div><input type="checkbox" name="clean" value="10">
+                    <div class="rating-label">10</div>
+                </div>
+            </div>
+
+            <!-- Staff Behaviour -->
+            <label><u>Staff Behaviour</u></label>
+            <div class="checkbox-container">
+                <div class="checkbox-item">
+                    <div class="emoji">😡</div><input type="checkbox" name="staff" value="1">
+                    <div class="rating-label">1</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😟</div><input type="checkbox" name="staff" value="2">
+                    <div class="rating-label">2</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😕</div><input type="checkbox" name="staff" value="3">
+                    <div class="rating-label">3</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😐</div><input type="checkbox" name="staff" value="4">
+                    <div class="rating-label">4</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">🙂</div><input type="checkbox" name="staff" value="5">
+                    <div class="rating-label">5</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😊</div><input type="checkbox" name="staff" value="6">
+                    <div class="rating-label">6</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😃</div><input type="checkbox" name="staff" value="7">
+                    <div class="rating-label">7</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😁</div><input type="checkbox" name="staff" value="8">
+                    <div class="rating-label">8</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😎</div><input type="checkbox" name="staff" value="9">
+                    <div class="rating-label">9</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">🤩</div><input type="checkbox" name="staff" value="10">
+                    <div class="rating-label">10</div>
+                </div>
+            </div>
+
+            <!-- Overall Rating -->
+            <label><u>Overall Rating</u></label>
+            <div class="checkbox-container">
+                <div class="checkbox-item">
+                    <div class="emoji">😡</div><input type="checkbox" name="overall" value="1">
+                    <div class="rating-label">1</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😟</div><input type="checkbox" name="overall" value="2">
+                    <div class="rating-label">2</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😕</div><input type="checkbox" name="overall" value="3">
+                    <div class="rating-label">3</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😐</div><input type="checkbox" name="overall" value="4">
+                    <div class="rating-label">4</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">🙂</div><input type="checkbox" name="overall" value="5">
+                    <div class="rating-label">5</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😊</div><input type="checkbox" name="overall" value="6">
+                    <div class="rating-label">6</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😃</div><input type="checkbox" name="overall" value="7">
+                    <div class="rating-label">7</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😁</div><input type="checkbox" name="overall" value="8">
+                    <div class="rating-label">8</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">😎</div><input type="checkbox" name="overall" value="9">
+                    <div class="rating-label">9</div>
+                </div>
+                <div class="checkbox-item">
+                    <div class="emoji">🤩</div><input type="checkbox" name="overall" value="10">
+                    <div class="rating-label">10</div>
+                </div>
+            </div>
+
+            <label><u>Additional Comments (Optional)</u></label>
+            <textarea id="comments" rows="3"></textarea>
+
+            <div class="spinner" id="spinner"></div>
+            <button type="submit">Submit Feedback</button>
+        </form>
+
+        <div class="thanks" id="thanksMessage">Thank you for your feedback!</div>
+    </div>
+
+    <script>
+        // Employee Yes/No logic
+        const empYes = document.getElementById('empYes');
+        const empNo = document.getElementById('empNo');
+        const empDiv = document.getElementById('employeeCodeDiv');
+        empYes.addEventListener('change', () => {
+            empDiv.style.display = empYes.checked ? 'block' : 'none';
+            if (empYes.checked) empNo.checked = false;
+        });
+        empNo.addEventListener('change', () => {
+            if (empNo.checked) empYes.checked = false;
+            empDiv.style.display = 'none';
+        });
+
+        // Date & Time
+        const dateTimeInput = document.getElementById('dateTime');
+        function updateDateTime() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12 || 12;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            dateTimeInput.value = now.toLocaleDateString() + ' ' + hours + ':' + minutes + ' ' + ampm;
+        }
+        updateDateTime();
+
+        // Form submit
+        const form = document.getElementById('feedbackForm');
+        const spinner = document.getElementById('spinner');
+        const thanks = document.getElementById('thanksMessage');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            if (empYes.checked) {
+                const code = document.getElementById('employeeCode').value;
+                if (!/^\d{8}$/.test(code)) { alert('Employee code must be 8 digits'); return; }
+            }
+
+            let valid = true;
+            ['food', 'service', 'clean', 'staff', 'overall'].forEach(id => {
+                if (!document.querySelector(`input[name="${id}"]:checked`)) {
+                    alert(`Please select ${id.charAt(0).toUpperCase() + id.slice(1)} rating`);
+                    valid = false;
+                }
+            });
+            if (!valid) return;
+
+            spinner.style.display = 'block';
+            document.body.style.cursor = 'wait';
+
+            const data = {
+                employee: empYes.checked ? 'Yes' : 'No',
+                employeeCode: document.getElementById('employeeCode').value,
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                dateTime: dateTimeInput.value,
+                meal: document.getElementById('meal').value,
+                foodRating: document.querySelector('input[name="food"]:checked').value,
+                serviceRating: document.querySelector('input[name="service"]:checked').value,
+                cleanRating: document.querySelector('input[name="clean"]:checked').value,
+                staffRating: document.querySelector('input[name="staff"]:checked').value,
+                overallRating: document.querySelector('input[name="overall"]:checked').value,
+                comments: document.getElementById('comments').value
+            };
+
+            fetch('https://script.google.com/macros/s/AKfycbyMnjwBwnvoE7PKBsMHil7kuaCoIItlHpVcHZEPehRgqjuE3-EJKGzut0t7dUGHaw_i/exec', {
+                method: 'POST', mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            }).then(() => {
+                spinner.style.display = 'none';
+                document.body.style.cursor = 'default';
+                form.style.display = 'none';
+                thanks.style.display = 'block';
+            }).catch(() => {
+                spinner.style.display = 'none';
+                document.body.style.cursor = 'default';
+                alert('Error submitting form');
+            });
+        });
+    </script>
+</body>
+
+</html>
